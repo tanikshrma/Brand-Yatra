@@ -1,0 +1,5 @@
+# Brand Yatra Robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://brandyatra.com/sitemap.xml
