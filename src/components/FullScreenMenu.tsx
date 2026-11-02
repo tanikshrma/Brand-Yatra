@@ -95,7 +95,7 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
     >
       {/* Background backdrop blur */}
       <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity duration-500"
+        className="absolute inset-0 bg-[#071521]/85 backdrop-blur-md transition-opacity duration-500"
         onClick={onClose}
       />
 
@@ -192,7 +192,7 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
 
         {/* RIGHT PANEL: 33% width on desktop */}
         <div
-          className={`hidden lg:flex lg:w-[33%] bg-[#0a1824] text-[#FFFFFF] border-l border-white/10 p-8 sm:p-12 lg:p-14 xl:p-16 flex-col justify-between relative transition-transform duration-700 ease-cinema ${
+          className={`hidden lg:flex lg:w-[33%] bg-[#142F48] text-[#FFFFFF] border-l border-white/10 p-8 sm:p-12 lg:p-14 xl:p-16 flex-col justify-between relative transition-transform duration-700 ease-cinema ${
             isOpen ? 'translate-x-0' : 'translate-x-12'
           }`}
         >

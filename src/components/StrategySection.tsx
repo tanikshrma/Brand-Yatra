@@ -39,7 +39,7 @@ export const StrategySection: React.FC<StrategySectionProps> = ({ onOpenConsulta
             </div>
 
             {/* Dark CTA Banner Panel */}
-            <div className="bg-[#0E2234] text-white rounded-2xl p-6 sm:p-7 shadow-xl border border-[#0E2234] mt-2 sm:mt-6">
+            <div className="bg-[#0E2234] text-white p-6 sm:p-7 border-l-2 border-[#F8C311] mt-2 sm:mt-6">
               <div className="text-clamp-label font-mono text-[#F8C311] font-bold uppercase tracking-wider mb-2">
                 Compound Pipeline Impact
               </div>

@@ -120,7 +120,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onSuccessSubmit 
           </div>
 
           {/* Right Column: Clean Minimalist Inquiry Form */}
-          <div className="lg:col-span-7 bg-[#0a1824] border border-white/10 p-6 sm:p-8 lg:p-10">
+          <div className="lg:col-span-7 bg-[#0a1824] border-t-2 border-[#F8C311] p-6 sm:p-8 lg:p-10">
             {submitted ? (
               <div className="py-10 sm:py-12 text-center animate-in fade-in duration-300">
                 <div className="w-16 h-16 bg-[#F8C311]/15 border border-[#F8C311]/40 text-[#F8C311] rounded-full flex items-center justify-center mx-auto mb-4">

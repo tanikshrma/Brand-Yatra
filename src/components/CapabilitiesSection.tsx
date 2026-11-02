@@ -35,70 +35,52 @@ export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onOpen
           </p>
         </div>
 
-        {/* Editorial Index Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12 sm:mb-16">
+        {/* Capability index */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 lg:gap-x-16 mb-12 sm:mb-16">
           {CAPABILITY_TAGS.map((item, index) => {
             const isSelected = activeCapability === item.id;
             const itemNumber = (index + 1).toString().padStart(2, '0');
 
             return (
-              <div
+              <button
                 key={item.id}
-                role="button"
-                tabIndex={0}
+                type="button"
                 aria-pressed={isSelected}
                 aria-label={`Capability ${item.name}: ${item.desc}`}
                 onClick={() => setActiveCapability(item.id)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setActiveCapability(item.id);
-                  }
-                }}
-                className={`group cursor-pointer p-5 sm:p-7 border transition-colors duration-300 flex flex-col justify-between min-h-[220px] ${
+                className={`capability-index-item group cursor-pointer text-left w-full border-t py-5 sm:py-6 transition-colors duration-300 ${
                   isSelected
-                    ? 'bg-[#0E2234] border-[#0E2234] text-white'
-                    : 'bg-white border-[#E5E9ED] hover:border-[#F8C311]'
+                    ? 'border-[#F8C311]'
+                    : 'border-[#E5E9ED] hover:border-[#F8C311]'
                 }`}
               >
-                <div>
-                  <div className="flex items-center justify-between mb-4 sm:mb-5">
-                    <span className={`font-mono text-xs font-bold tracking-wider ${
-                      isSelected ? 'text-[#F8C311]' : 'text-[#66717D]'
+                <div className="grid grid-cols-[2.5rem_minmax(0,1fr)_1.25rem] sm:grid-cols-[3rem_minmax(0,1fr)_1.25rem] gap-x-3 sm:gap-x-4">
+                  <span className={`font-mono text-sm tabular-nums pt-0.5 ${
+                    isSelected ? 'text-[#F8C311]' : 'text-[#66717D]'
+                  }`}>
+                    {itemNumber}
+                  </span>
+                  <div>
+                    <h3 className={`font-['Marcellus',serif] text-base sm:text-lg font-bold mb-1.5 transition-colors leading-snug ${
+                      isSelected ? 'text-[#0E2234]' : 'text-[#0E2234] group-hover:text-[#66717D]'
                     }`}>
-                      {itemNumber}
-                    </span>
-                    <ArrowUpRight className={`w-4 h-4 transition-transform duration-300 ${
-                      isSelected ? 'text-[#F8C311]' : 'text-[#66717D] group-hover:text-[#0E2234] group-hover:translate-x-0.5 group-hover:-translate-y-0.5'
-                    }`} />
+                      {item.name}
+                    </h3>
+                    <p className="font-['Inter',sans-serif] text-clamp-body-sm leading-relaxed text-[#66717D] max-w-xl">
+                      {item.desc}
+                    </p>
                   </div>
-
-                  <h3 className={`font-['Marcellus',serif] text-base sm:text-lg font-bold mb-2 transition-colors leading-snug ${
-                    isSelected ? 'text-white' : 'text-[#0E2234] group-hover:text-[#66717D]'
-                  }`}>
-                    {item.name}
-                  </h3>
-
-                  <p className={`font-['Inter',sans-serif] text-clamp-body-sm leading-relaxed ${
-                    isSelected ? 'text-[#D1D1D6]' : 'text-[#66717D]'
-                  }`}>
-                    {item.desc}
-                  </p>
+                  <ArrowUpRight className={`w-4 h-4 mt-0.5 transition-transform duration-300 ${
+                    isSelected ? 'text-[#F8C311]' : 'text-[#66717D] group-hover:text-[#0E2234] group-hover:translate-x-0.5 group-hover:-translate-y-0.5'
+                  }`} />
                 </div>
-
-                <div className={`mt-5 sm:mt-6 pt-4 border-t flex items-center gap-2 text-[11px] font-['Inter',sans-serif] ${
-                  isSelected ? 'border-white/15 text-[#D1D1D6]' : 'border-[#E5E9ED] text-[#66717D]'
-                }`}>
-                  <span className="w-1.5 h-1.5 bg-[#F8C311]" />
-                  <span>Strategic Agency Core</span>
-                </div>
-              </div>
+              </button>
             );
           })}
         </div>
 
         {/* Editorial Action Bar */}
-        <div className="bg-[#0E2234] border border-[#0E2234] rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xl text-white">
+        <div className="bg-[#0E2234] border-l-2 border-[#F8C311] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-white">
           <div>
             <div className="font-['Marcellus',serif] text-clamp-subheading font-bold text-white mb-1">
               Need an integrated channel audit for your business?

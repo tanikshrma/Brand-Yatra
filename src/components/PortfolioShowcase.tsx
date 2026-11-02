@@ -114,7 +114,7 @@ export const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
 
                   {/* Visual Image Presentation Card */}
                   <div className={`lg:col-span-7 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-                    <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-[#E5E9ED] bg-[#F5F6F7] group/img aspect-[16/10] sm:aspect-[16/9] shadow-md">
+                    <div className="relative overflow-hidden border border-[#E5E9ED] bg-[#F5F6F7] group/img aspect-[16/10] sm:aspect-[16/9]">
                       <img
                         src={
                           project.visualType === 'banking'

@@ -47,7 +47,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onOpenConsultati
               >
                 <div className="flex items-center justify-between gap-3 mb-7">
                   <span className={`font-mono text-4xl sm:text-5xl font-medium tracking-tight ${
-                    isHighlight ? 'text-[#F8C311]' : 'text-[#E5E9ED]'
+                    isHighlight ? 'text-[#F8C311]' : 'text-[#66717D]'
                   }`}>
                     {step.step}
                   </span>

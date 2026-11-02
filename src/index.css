@@ -152,6 +152,12 @@ button[class*="group"]:active {
   transform: translateY(0);
 }
 
+button.capability-index-item:hover,
+button.capability-index-item:active {
+  transform: none;
+  box-shadow: none;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

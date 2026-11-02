@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import { FullScreenMenu } from './FullScreenMenu';
-import logoImg from '../assets/images/Logo Black 01.png';
+import logoImg from '../assets/images/Logo White 01.png';
 
 interface HeaderProps {
   onOpenConsultation?: () => void;
@@ -34,8 +34,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E5E9ED] shadow-sm'
-            : 'bg-[#FFFFFF] border-b border-[#E5E9ED]'
+            ? 'bg-[#0E2234]/95 backdrop-blur-md border-b border-white/10 shadow-sm'
+            : 'bg-[#0E2234] border-b border-white/10'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between gap-8">
@@ -56,12 +56,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
           </a>
 
           {/* Zone 2: Clean Title-Case Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8 font-['Manrope',sans-serif] text-sm font-semibold text-[#66717D]">
+          <nav className="hidden lg:flex items-center gap-8 font-['Manrope',sans-serif] text-sm font-semibold text-white/75">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="hover:text-[#0E2234] transition-colors duration-200 py-1 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F8C311] rounded whitespace-nowrap shrink-0"
+                className="hover:text-white transition-colors duration-200 py-1 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F8C311] rounded whitespace-nowrap shrink-0"
               >
                 <span>{link.name}</span>
                 <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#F8C311] transition-all duration-300 group-hover:w-full" />
@@ -76,7 +76,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation }) => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-expanded={isMenuOpen}
               aria-label={isMenuOpen ? 'Close Navigation Menu' : 'Open Full Screen Navigation Menu'}
-              className="group relative w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-[#F8C311] hover:bg-[#e6b30c] text-[#0E2234] flex items-center justify-center transition-all duration-300 shadow-md shadow-[#F8C311]/20 hover:shadow-lg hover:shadow-[#F8C311]/35 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0E2234]"
+              className="group relative w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-[#F8C311] hover:bg-[#e6b30c] text-[#0E2234] flex items-center justify-center transition-all duration-300 shadow-md shadow-[#F8C311]/20 hover:shadow-lg hover:shadow-[#F8C311]/35 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               {isMenuOpen ? (
                 <X className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2] animate-in spin-in-90 duration-200 text-[#0E2234]" />

@@ -52,8 +52,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 sm:mb-16 pb-8 border-b border-[#E5E9ED]">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-end gap-6 lg:gap-10 mb-10 sm:mb-14 pb-8 sm:pb-10 border-b border-[#E5E9ED]">
+          <div className="lg:col-span-8">
             <div className="flex items-center gap-2 text-clamp-label font-['Manrope',sans-serif] tracking-widest text-[#F8C311] uppercase font-semibold mb-3">
               <span>Core Services</span>
               <span aria-hidden="true">·</span>
@@ -67,54 +67,63 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             </WordRevealHeading>
           </div>
 
-          <button
-            onClick={onOpenConsultation}
-            className="group relative w-18 h-18 sm:w-24 sm:h-24 rounded-full bg-[#F8C311] hover:bg-[#e6b30c] text-[#0E2234] transition-all duration-300 flex flex-col items-center justify-center p-2 shadow-lg shadow-[#F8C311]/20 hover:-translate-y-1 active:translate-y-0 cursor-pointer shrink-0 self-start sm:self-auto"
-            aria-label="Let's Talk - Open Consultation Form"
-          >
-            <span className="font-['Marcellus',serif] text-[11px] sm:text-xs tracking-wider uppercase text-[#0E2234] leading-tight text-center font-bold">
-              Let's
-              <br />
-              Talk
-            </span>
-            <ArrowUpRight className="w-4 h-4 text-[#0E2234] stroke-[2.8] mt-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </button>
+          <div className="lg:col-span-4 flex items-end justify-between gap-5">
+            <p className="font-['Inter',sans-serif] text-clamp-body-sm text-[#66717D] leading-relaxed max-w-sm">
+              Brand strategy, identity, websites and digital growth—built to work together.
+            </p>
+            <button
+              onClick={onOpenConsultation}
+              className="group relative w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-[#F8C311] hover:bg-[#e6b30c] text-[#0E2234] transition-all duration-300 flex flex-col items-center justify-center p-2 shadow-lg shadow-[#F8C311]/20 hover:-translate-y-1 active:translate-y-0 cursor-pointer shrink-0"
+              aria-label="Let's Talk - Open Consultation Form"
+            >
+              <span className="font-['Marcellus',serif] text-[11px] sm:text-xs tracking-wider uppercase text-[#0E2234] leading-tight text-center font-bold">
+                Let's
+                <br />
+                Talk
+              </span>
+              <ArrowUpRight className="w-4 h-4 text-[#0E2234] stroke-[2.8] mt-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </button>
+          </div>
         </div>
 
-        {/* 8 Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7">
+        {/* Two-column service index */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 lg:gap-x-16">
           {SERVICES_LIST.map((service, index) => (
             <div
               key={service.id}
-              className="group relative border-t border-[#E5E9ED] hover:border-[#F8C311] py-5 sm:py-6 transition-colors duration-300 flex flex-col justify-between"
+              className="group relative border-t border-[#E5E9ED] hover:border-[#F8C311] py-6 sm:py-7 transition-colors duration-300"
             >
-              <div>
-                <div className="flex items-center justify-between mb-5">
-                  <span className="font-mono text-xs font-semibold tracking-wider text-[#66717D]">
-                    0{index + 1}
-                  </span>
-                  {getIcon(service.icon)}
+              <div className="grid grid-cols-[2.5rem_minmax(0,1fr)] sm:grid-cols-[3rem_minmax(0,1fr)] gap-x-3 sm:gap-x-4">
+                <span className="font-mono text-sm sm:text-base font-medium tracking-wide text-[#66717D] pt-0.5 tabular-nums">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <div>
+                  <div className="flex items-center justify-between gap-4 mb-3">
+                    <span className="font-['Manrope',sans-serif] text-[10px] sm:text-[11px] uppercase tracking-[0.14em] font-bold text-[#66717D]">
+                      {service.category}
+                    </span>
+                    <span className="shrink-0">{getIcon(service.icon)}</span>
+                  </div>
+
+                  <h3 className="font-['Marcellus',serif] text-lg sm:text-xl font-normal text-[#0E2234] mb-2.5 group-hover:text-[#66717D] transition-colors leading-snug">
+                    {service.title}
+                  </h3>
+
+                  <p className="font-['Inter',sans-serif] text-clamp-body-sm text-[#66717D] leading-relaxed mb-5 max-w-xl">
+                    {service.shortDesc}
+                  </p>
+
+                  <button
+                    onClick={() => onSelectService(service)}
+                    aria-label={`Explore details for ${service.title}`}
+                    className="group/btn relative inline-flex min-w-[190px] items-center justify-between text-[#0E2234] group-hover/btn:text-[#0E2234] font-['Inter',sans-serif] text-[11px] font-extrabold uppercase tracking-wider py-3 px-4 rounded-lg transition-all duration-200 cursor-pointer"
+                  >
+                    <BtnShape fill="#E5E9ED" className="group-hover/btn:fill-[#F8C311] transition-colors" />
+                    <span className="relative z-10">Explore Service</span>
+                    <ArrowUpRight className="relative z-10 w-3.5 h-3.5 stroke-[2.5] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                  </button>
                 </div>
-
-                <h3 className="font-['Marcellus',serif] text-lg sm:text-xl font-normal text-[#0E2234] mb-2.5 group-hover:text-[#66717D] transition-colors leading-snug">
-                  {service.title}
-                </h3>
-
-                <p className="font-['Inter',sans-serif] text-clamp-body-sm text-[#66717D] leading-relaxed mb-5">
-                  {service.shortDesc}
-                </p>
-              </div>
-
-              <div className="relative z-10 pt-2 border-t border-[#E5E9ED]">
-                <button
-                  onClick={() => onSelectService(service)}
-                  aria-label={`Explore details for ${service.title}`}
-                  className="group/btn relative w-full flex items-center justify-between text-[#0E2234] group-hover/btn:text-[#0E2234] font-['Inter',sans-serif] text-[11px] font-extrabold uppercase tracking-wider py-3 px-4 rounded-lg transition-all duration-200 cursor-pointer"
-                >
-                  <BtnShape fill="#E5E9ED" className="group-hover/btn:fill-[#F8C311] transition-colors" />
-                  <span className="relative z-10">Explore Service</span>
-                  <ArrowUpRight className="relative z-10 w-3.5 h-3.5 stroke-[2.5] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                </button>
               </div>
             </div>
           ))}
