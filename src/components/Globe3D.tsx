@@ -49,9 +49,9 @@ export const Globe3D: React.FC = () => {
 
         // Core Dark Globe Sphere
         const globeGrad = ctx.createRadialGradient(cx - r * 0.3, cy - r * 0.3, 10, cx, cy, r);
-        globeGrad.addColorStop(0, '#1c1c24');
-        globeGrad.addColorStop(0.7, '#0f0f13');
-        globeGrad.addColorStop(1, '#050508');
+        globeGrad.addColorStop(0, '#0E2234');
+        globeGrad.addColorStop(0.7, '#0E2234');
+        globeGrad.addColorStop(1, '#17212B');
         ctx.fillStyle = globeGrad;
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, Math.PI * 2);
@@ -171,7 +171,7 @@ export const Globe3D: React.FC = () => {
       const coreRadius = 70;
       const coreGeo = new THREE.SphereGeometry(coreRadius - 1, 48, 48);
       const coreMat = new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#0b0b0e'),
+        color: new THREE.Color('#0E2234'),
         roughness: 0.32,
         metalness: 0.88,
       });
@@ -205,7 +205,7 @@ export const Globe3D: React.FC = () => {
       const colors = new Float32Array(dotCount * 3);
 
       const yellowColor = new THREE.Color('#F8C311');
-      const darkColor = new THREE.Color('#44444a');
+      const darkColor = new THREE.Color('#66717D');
       const whiteColor = new THREE.Color('#ffffff');
 
       for (let i = 0; i < dotCount; i++) {
@@ -429,7 +429,7 @@ export const Globe3D: React.FC = () => {
       />
       
       {/* Soft Ambient Radial Yellow Glow Behind Globe */}
-      <div className="absolute w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] rounded-full bg-[#F8C311]/12 blur-[100px] pointer-events-none z-0" />
+      <div className="absolute w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] rounded-full bg-[var(--color-primary)]/12 blur-[100px] pointer-events-none z-0" />
     </div>
   );
 };

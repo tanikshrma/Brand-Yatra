@@ -19,45 +19,61 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
   const mobileCloseButtonRef = useRef<HTMLButtonElement>(null);
 
   const menuLinks = [
-    { label: 'Core Service', href: '#services', number: '01' },
-    { label: 'What we do', href: '#strategy', number: '02' },
-    { label: 'Features', href: '#capabilities', number: '03' },
+    { label: 'Services', href: '#services', number: '01' },
+    { label: 'Strategy', href: '#strategy', number: '02' },
+    { label: 'Capabilities', href: '#capabilities', number: '03' },
     { label: 'Portfolio', href: '#portfolio', number: '04' },
-    { label: 'Other Services', href: '#process', number: '05' },
+    { label: 'Process', href: '#process', number: '05' },
     { label: 'Contact', href: '#contact', number: '06' },
   ];
 
   useEffect(() => {
-    if (isOpen) {
-      const originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
+    if (!isOpen) return;
 
-      const timer = setTimeout(() => {
-        if (window.innerWidth < 1024) {
-          mobileCloseButtonRef.current?.focus();
-        } else {
-          closeButtonRef.current?.focus();
-        }
-      }, 100);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
 
-      return () => {
-        document.body.style.overflow = originalOverflow;
-        clearTimeout(timer);
-      };
-    } else {
-      document.body.style.overflow = '';
-    }
-  }, [isOpen]);
+    const timer = setTimeout(() => {
+      if (window.innerWidth < 1024) {
+        mobileCloseButtonRef.current?.focus();
+      } else {
+        closeButtonRef.current?.focus();
+      }
+    }, 100);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
         onClose();
-        triggerButtonRef?.current?.focus();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const focusableElements = Array.from(
+        overlayRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((element) => element.getClientRects().length > 0);
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      if (!firstElement || !lastElement) return;
+
+      if (event.shiftKey && (document.activeElement === firstElement || !overlayRef.current?.contains(document.activeElement))) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && (document.activeElement === lastElement || !overlayRef.current?.contains(document.activeElement))) {
+        event.preventDefault();
+        firstElement.focus();
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+      clearTimeout(timer);
+      triggerButtonRef?.current?.focus();
+    };
   }, [isOpen, onClose, triggerButtonRef]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -66,6 +82,7 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
 
     const targetElement = document.querySelector(href);
     if (targetElement) {
+      window.history.pushState(null, '', href);
       setTimeout(() => {
         targetElement.scrollIntoView({ behavior: 'smooth' });
       }, 350);
@@ -84,26 +101,27 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
   return (
     <div
       ref={overlayRef}
+      id="fullscreen-navigation"
       role="dialog"
       aria-modal="true"
       aria-label="Main Navigation Menu"
-      className={`fixed inset-0 z-50 transition-all duration-700 ease-cinema ${
+      tabIndex={-1}
+      className={`by-menu-surface fixed inset-0 z-50 overflow-hidden transition-all duration-700 ease-cinema ${
         isOpen
           ? 'opacity-100 pointer-events-auto visible'
           : 'opacity-0 pointer-events-none invisible'
       }`}
     >
-      {/* Background backdrop blur */}
       <div
-        className="absolute inset-0 bg-[#071521]/85 backdrop-blur-md transition-opacity duration-500"
+        className="absolute inset-0 bg-black/10 transition-opacity duration-500"
         onClick={onClose}
       />
 
-      <div className="relative w-full h-full flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden select-none">
+      <div className="relative flex h-full min-h-0 w-full flex-col overflow-hidden lg:flex-row">
         
         {/* MENU LINKS PANEL: Full width on mobile, 67% on desktop */}
         <div
-          className={`w-full lg:w-[67%] bg-[#0E2234] text-[#FFFFFF] h-full min-h-[100dvh] lg:min-h-full flex flex-col justify-between p-6 sm:p-10 lg:p-16 xl:p-20 transition-transform duration-700 ease-cinema relative z-10 overflow-y-auto lg:overflow-visible ${
+          className={`relative z-10 flex h-full min-h-0 w-full flex-col justify-between p-6 text-[var(--color-white)] transition-transform duration-700 ease-cinema sm:p-10 lg:w-[67%] lg:px-[100px] lg:py-10 xl:py-12 ${
             isOpen ? 'translate-y-0 lg:translate-x-0' : '-translate-y-8 lg:-translate-x-12'
           }`}
         >
@@ -114,30 +132,30 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
             }`}
           >
             {/* Left Brand Logo Image */}
-            <div className="flex items-center gap-3">
+            <a href="/" aria-label="Brand Yatra Home" className="inline-flex shrink-0 items-center rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]">
               <img
                 src={logoImg}
                 alt="Brand Yatra Logo"
-                width={140}
-                height={28}
-                className="h-6 sm:h-7 w-auto object-contain"
+                width={180}
+                height={32}
+                className="h-auto w-[min(180px,55vw)] object-contain"
               />
-            </div>
+            </a>
 
             {/* Mobile Close Button (< lg only) */}
             <button
               ref={mobileCloseButtonRef}
               onClick={onClose}
               aria-label="Close navigation menu"
-              className="lg:hidden w-11 h-11 rounded-full bg-[#F8C311] hover:bg-[#E5B20D] text-[#0E2234] flex items-center justify-center transition-all duration-300 shadow-lg shadow-[#F8C311]/25 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white font-bold"
+              className="lg:hidden w-11 h-11 rounded-full bg-[var(--color-primary)] hover:bg-[var(--color-primary)] text-[var(--color-navy)] flex items-center justify-center transition-all duration-300 shadow-lg shadow-[var(--color-primary)]/25 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white font-bold"
             >
               <X className="w-5 h-5 stroke-[2.5]" />
             </button>
           </div>
 
           {/* Navigation Links - Centered & Prominent */}
-          <nav className="my-auto py-6 sm:py-8 lg:py-0">
-            <ul className="flex flex-col space-y-2.5 sm:space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-7">
+          <nav className="my-auto w-full py-[clamp(0.5rem,2vh,1.5rem)]">
+            <ul className="flex flex-col divide-y divide-white/10 border-y border-white/10">
               {menuLinks.map((link, idx) => {
                 const delayMs = isOpen ? idx * 50 + 100 : 0;
 
@@ -147,7 +165,7 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
                     style={{
                       transitionDelay: `${delayMs}ms`,
                     }}
-                    className={`transform transition-all duration-600 ease-cinema ${
+                    className={`transform py-[clamp(0.2rem,0.65vh,0.5rem)] transition-all duration-600 ease-cinema ${
                       isOpen
                         ? 'opacity-100 translate-y-0'
                         : 'opacity-0 translate-y-6'
@@ -156,18 +174,18 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
                     <a
                       href={link.href}
                       onClick={(e) => handleNavClick(e, link.href)}
-                      className="group flex items-baseline gap-3 sm:gap-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F8C311] rounded-lg py-1.5 active:text-[#F8C311]"
+                      className="group flex items-center gap-3 rounded-lg py-0.5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] active:text-[var(--color-primary)] sm:gap-5"
                     >
-                      <span className="font-mono text-xs sm:text-sm text-[#F8C311]/70 group-hover:text-[#F8C311] group-active:text-[#F8C311] transition-colors duration-300 w-6 flex-shrink-0">
+                      <span className="font-mono text-xs sm:text-sm text-[var(--color-primary)]/70 group-hover:text-[var(--color-primary)] group-active:text-[var(--color-primary)] transition-colors duration-300 w-6 flex-shrink-0">
                         /{link.number}
                       </span>
 
                       {/* Marcellus Font for prominent large menu links */}
-                      <span className="font-['Marcellus',serif] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[58px] tracking-tight leading-[1.15] text-[#FFFFFF] group-hover:text-[#F8C311] group-hover:translate-x-2 group-active:text-[#F8C311] transition-all duration-300 ease-out">
+                      <span className="font-['Marcellus',serif] text-[clamp(1.5rem,4.2vw,3.25rem)] leading-[1.1] tracking-tight text-[var(--color-white)] transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:text-[var(--color-primary)] group-active:text-[var(--color-primary)]">
                         {link.label}
                       </span>
 
-                      <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#F8C311] opacity-0 -translate-x-2 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 ease-out hidden sm:inline-block" />
+                      <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--color-primary)] opacity-0 -translate-x-2 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 ease-out hidden sm:inline-block" />
                     </a>
                   </li>
                 );
@@ -177,22 +195,19 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
 
           {/* Bottom Footer Info */}
           <div
-            className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#929292] pt-4 border-t border-white/10 transition-all duration-700 delay-500 ${
+            className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[var(--color-muted-slate)] pt-4 border-t border-white/10 transition-all duration-700 delay-500 ${
               isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
-            <span className="font-['Marcellus',serif] tracking-wider uppercase text-xs sm:text-sm text-[#FFFFFF]/90">
+            <span className="font-['Marcellus',serif] tracking-wider uppercase text-xs sm:text-sm text-[var(--color-white)]/90">
               Brand Yatra &copy; {new Date().getFullYear()} · Creative Agency
-            </span>
-            <span className="font-mono text-[11px] text-[#F8C311]">
-              [TAP LINK OR CLOSE]
             </span>
           </div>
         </div>
 
         {/* RIGHT PANEL: 33% width on desktop */}
         <div
-          className={`hidden lg:flex lg:w-[33%] bg-[#142F48] text-[#FFFFFF] border-l border-white/10 p-8 sm:p-12 lg:p-14 xl:p-16 flex-col justify-between relative transition-transform duration-700 ease-cinema ${
+          className={`relative hidden flex-col justify-between border-l border-white/10 p-8 text-[var(--color-white)] transition-transform duration-700 ease-cinema sm:p-12 lg:flex lg:w-[33%] lg:p-12 xl:p-14 ${
             isOpen ? 'translate-x-0' : 'translate-x-12'
           }`}
         >
@@ -202,7 +217,7 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
               ref={closeButtonRef}
               onClick={onClose}
               aria-label="Close navigation menu"
-              className="w-12 h-12 rounded-full bg-white/5 hover:bg-[#F8C311] text-[#FFFFFF] hover:text-[#0E2234] border border-white/10 hover:border-[#F8C311] flex items-center justify-center transition-all duration-300 cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F8C311]"
+              className="w-12 h-12 rounded-full bg-white/5 hover:bg-[var(--color-primary)] text-[var(--color-white)] hover:text-[var(--color-navy)] border border-white/10 hover:border-[var(--color-primary)] flex items-center justify-center transition-all duration-300 cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
             >
               <X className="w-6 h-6 stroke-[1.8]" />
             </button>
@@ -215,16 +230,16 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
                 isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              <h3 className="font-['Marcellus',serif] text-2xl sm:text-[28px] lg:text-[32px] text-[#FFFFFF] tracking-tight uppercase mb-3">
+              <h3 className="font-['Marcellus',serif] text-2xl sm:text-[28px] lg:text-[32px] text-[var(--color-white)] tracking-tight uppercase mb-3">
                 Brief Us
               </h3>
               <a
                 href={`mailto:${AGENCY_INFO.email}`}
-                className="inline-block text-base sm:text-lg text-[#F8C311] hover:text-white font-semibold tracking-wide mb-2 transition-colors"
+                className="inline-block text-base sm:text-lg text-[var(--color-primary)] hover:text-[var(--color-white)] font-semibold tracking-wide mb-2 transition-colors"
               >
                 {AGENCY_INFO.email}
               </a>
-              <p className="text-xs sm:text-sm text-[#777777] leading-relaxed max-w-xs font-['Plus_Jakarta_Sans',sans-serif]">
+              <p className="text-xs sm:text-sm text-[var(--color-muted-slate)] leading-relaxed max-w-xs font-['Plus_Jakarta_Sans',sans-serif]">
                 We'd love to hear about your brand vision, creative strategy, and digital marketing requirements.
               </p>
             </div>
@@ -235,41 +250,43 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
                 isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              <h3 className="font-['Marcellus',serif] text-2xl sm:text-[28px] lg:text-[32px] text-[#FFFFFF] tracking-tight uppercase mb-3">
+              <h3 className="font-['Marcellus',serif] text-2xl sm:text-[28px] lg:text-[32px] text-[var(--color-white)] tracking-tight uppercase mb-3">
                 Our Office
               </h3>
-              <div className="text-xs sm:text-sm text-[#777777] leading-relaxed max-w-xs space-y-1 font-['Plus_Jakarta_Sans',sans-serif]">
-                <p>{AGENCY_INFO.address.line1}</p>
-                <p>{AGENCY_INFO.address.line2}</p>
+              <div className="text-xs sm:text-sm text-[var(--color-muted-slate)] leading-relaxed max-w-xs space-y-1 font-['Plus_Jakarta_Sans',sans-serif]">
                 <p>{AGENCY_INFO.address.city}</p>
-                <p className="pt-1 text-[#FFFFFF] font-mono text-xs">{AGENCY_INFO.phone}</p>
+                <a href={`tel:${AGENCY_INFO.phone.replace(/\s+/g, '')}`} className="inline-block pt-1 text-[var(--color-white)] font-mono text-xs hover:text-[var(--color-primary)]">
+                  {AGENCY_INFO.phone}
+                </a>
               </div>
             </div>
 
             {/* GROUP 3: Follow Us */}
-            <div
-              className={`transition-all duration-700 delay-400 ${
-                isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
-            >
-              <h3 className="font-['Marcellus',serif] text-2xl sm:text-[28px] lg:text-[32px] text-[#FFFFFF] tracking-tight uppercase mb-4">
-                Follow Us
-              </h3>
-              <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm text-[#777777]">
-                {AGENCY_INFO.socials.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 hover:text-[#F8C311] transition-colors py-0.5"
-                  >
-                    <span>{social.name}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#777777] group-hover:text-[#F8C311]" />
-                  </a>
-                ))}
+            {AGENCY_INFO.socials.length > 0 && (
+              <div
+                className={`transition-all duration-700 delay-400 ${
+                  isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                }`}
+              >
+                <h3 className="font-['Marcellus',serif] text-2xl sm:text-[28px] lg:text-[32px] text-[var(--color-white)] tracking-tight uppercase mb-4">
+                  Follow Us
+                </h3>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm text-[var(--color-muted-slate)]">
+                  {AGENCY_INFO.socials.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 hover:text-[var(--color-primary)] transition-colors py-0.5"
+                    >
+                      <span>{social.name}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[var(--color-muted-slate)] group-hover:text-[var(--color-primary)]" />
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div
@@ -280,7 +297,7 @@ export const FullScreenMenu: React.FC<FullScreenMenuProps> = ({
             <button
               onClick={handleBackToTop}
               aria-label="Back to top of page"
-              className="w-11 h-11 bg-[#F8C311] hover:bg-[#E5B20D] text-[#171717] font-bold rounded-lg flex items-center justify-center transition-all duration-300 shadow-md shadow-[#F8C311]/25 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="w-11 h-11 bg-[var(--color-primary)] hover:bg-[var(--color-primary)] text-[var(--color-dark-text)] font-bold rounded-lg flex items-center justify-center transition-all duration-300 shadow-md shadow-[var(--color-primary)]/25 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               <ArrowUp className="w-5 h-5 stroke-[2.5]" />
             </button>

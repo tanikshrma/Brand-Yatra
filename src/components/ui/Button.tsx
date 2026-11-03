@@ -32,18 +32,18 @@ export const Button: React.FC<ButtonProps> = ({
   // Variant tokens adhering strictly to official Brand Yatra palette & agency aesthetic (rounded-lg geometric)
   const variantClasses = {
     primary:
-      'bg-[#F8C311] hover:bg-[#FFD13B] text-[#0E2234] border border-[#F8C311] shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] font-extrabold',
+      'bg-[var(--color-primary)] hover:bg-[var(--color-primary)] text-[var(--color-navy)] border border-[var(--color-primary)] shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 font-extrabold',
     secondary:
-      'bg-white hover:bg-[#F5F6F7] text-[#0E2234] border border-[#0E2234] shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] font-bold',
+      'bg-[var(--color-white)] hover:bg-[var(--color-soft-grey)] text-[var(--color-navy)] border border-[var(--color-navy)] shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 font-bold',
     dark:
-      'bg-[#0E2234] hover:bg-[#142f48] text-white border border-[#0E2234] shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] font-bold',
+      'bg-[var(--color-navy)] hover:bg-[var(--color-navy)] text-[var(--color-white)] border border-[var(--color-navy)] shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 font-bold',
     outline:
-      'bg-transparent hover:bg-[#0E2234] text-[#0E2234] hover:text-white border-2 border-[#0E2234] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] font-bold',
+      'bg-transparent hover:bg-[var(--color-navy)] text-[var(--color-navy)] hover:text-[var(--color-white)] border-2 border-[var(--color-navy)] hover:-translate-y-0.5 active:translate-y-0 font-bold',
     ghost:
-      'bg-transparent hover:bg-[#F5F6F7] text-[#0E2234] border border-transparent hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] font-semibold',
+      'bg-transparent hover:bg-[var(--color-soft-grey)] text-[var(--color-navy)] border border-transparent hover:-translate-y-0.5 active:translate-y-0 font-semibold',
   }[variant];
 
-  const baseClasses = `group inline-flex items-center justify-center rounded-lg font-['Syne',sans-serif] uppercase transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0E2234] focus-visible:ring-offset-2 ${sizeClasses} ${variantClasses} ${className}`;
+  const baseClasses = `group inline-flex items-center justify-center rounded-lg font-['Syne',sans-serif] uppercase transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-navy)] focus-visible:ring-offset-2 ${sizeClasses} ${variantClasses} ${className}`;
 
   const content = (
     <>

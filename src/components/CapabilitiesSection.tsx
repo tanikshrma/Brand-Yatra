@@ -1,103 +1,129 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CAPABILITY_TAGS } from '../data/agencyData';
-import { ArrowUpRight } from 'lucide-react';
+import {
+  ArrowUpRight,
+  BarChart3,
+  Globe2,
+  Megaphone,
+  Palette,
+  Search,
+  ShoppingBag,
+  Smartphone,
+  Sparkles,
+  Target,
+  TrendingUp,
+  Users,
+  WandSparkles,
+  MousePointerClick,
+} from 'lucide-react';
 import { WordRevealHeading } from './WordRevealHeading';
-import { BtnShape } from './BtnShape';
+
+const CAPABILITY_VISUALS = [
+  { icon: Megaphone },
+  { icon: Target },
+  { icon: Search },
+  { icon: BarChart3 },
+  { icon: WandSparkles },
+  { icon: Sparkles },
+  { icon: TrendingUp },
+  { icon: Users },
+  { icon: ShoppingBag },
+  { icon: MousePointerClick },
+  { icon: Palette },
+  { icon: Smartphone },
+  { icon: Globe2 },
+];
 
 interface CapabilitiesSectionProps {
-  onOpenConsultation: () => void;
+  onOpenConsultation: (serviceName: string) => void;
 }
 
 export const CapabilitiesSection: React.FC<CapabilitiesSectionProps> = ({ onOpenConsultation }) => {
-  const [activeCapability, setActiveCapability] = useState<string>(CAPABILITY_TAGS[0].id);
 
   return (
-    <section id="capabilities" className="py-16 sm:py-24 lg:py-32 bg-[#F5F6F7] text-[#17212B] relative overflow-hidden border-t border-[#E5E9ED]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="capabilities" className="relative overflow-hidden bg-[var(--color-soft-grey)] py-16 text-[var(--color-dark-text)] sm:py-20 lg:py-24">
+      <div className="site-gutter relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 mb-12 sm:mb-16 pb-8 border-b border-[#E5E9ED]">
+        <div className="mb-10 flex flex-col gap-6 border-b border-[var(--color-border)] pb-8 sm:mb-12 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
           <div>
-            <div className="flex items-center gap-2 text-clamp-label font-['Manrope',sans-serif] tracking-widest text-[#F8C311] uppercase font-semibold mb-3">
+            <div className="mb-3 flex items-center gap-2 font-['Manrope',sans-serif] text-clamp-label font-semibold uppercase tracking-widest text-[var(--color-navy)]">
               <span>Capabilities</span>
               <span aria-hidden="true">·</span>
               <span>Full-Spectrum Brand Growth</span>
             </div>
             <WordRevealHeading
               as="h2"
-              className="font-['Marcellus',serif] text-clamp-heading text-[#0E2234] font-normal tracking-tight leading-tight"
+              className="font-['Marcellus',serif] text-clamp-heading font-normal leading-tight tracking-tight text-[var(--color-dark-text)]"
             >
-              Get Found. Get Chosen. <span className="text-[#F8C311]">Grow Faster.</span>
+              Get Found. Get Chosen. <span className="text-[var(--color-navy)]">Grow Faster.</span>
             </WordRevealHeading>
           </div>
-          <p className="font-['Inter',sans-serif] text-clamp-body-sm text-[#66717D] max-w-md leading-relaxed">
+          <p className="max-w-md font-['Inter',sans-serif] text-clamp-body-sm leading-relaxed text-[var(--color-muted-slate)]">
             We unite visual identity, search intent dominance, and performance acquisition into one high-converting commercial engine.
           </p>
         </div>
 
-        {/* Capability index */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 lg:gap-x-16 mb-12 sm:mb-16">
+        <div className="mb-10 grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3 xl:gap-6">
           {CAPABILITY_TAGS.map((item, index) => {
-            const isSelected = activeCapability === item.id;
-            const itemNumber = (index + 1).toString().padStart(2, '0');
+            const visual = CAPABILITY_VISUALS[index] ?? CAPABILITY_VISUALS[0];
+            const Icon = visual.icon;
 
             return (
-              <button
+              <article
                 key={item.id}
-                type="button"
-                aria-pressed={isSelected}
-                aria-label={`Capability ${item.name}: ${item.desc}`}
-                onClick={() => setActiveCapability(item.id)}
-                className={`capability-index-item group cursor-pointer text-left w-full border-t py-5 sm:py-6 transition-colors duration-300 ${
-                  isSelected
-                    ? 'border-[#F8C311]'
-                    : 'border-[#E5E9ED] hover:border-[#F8C311]'
-                }`}
+                className="group relative isolate flex min-h-[260px] flex-col overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white p-5 text-[var(--color-dark-text)] shadow-[0_8px_24px_rgba(14,34,52,0.045)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-primary)]/70 hover:shadow-[0_18px_38px_rgba(14,34,52,0.10)] sm:p-6"
               >
-                <div className="grid grid-cols-[2.5rem_minmax(0,1fr)_1.25rem] sm:grid-cols-[3rem_minmax(0,1fr)_1.25rem] gap-x-3 sm:gap-x-4">
-                  <span className={`font-mono text-sm tabular-nums pt-0.5 ${
-                    isSelected ? 'text-[#F8C311]' : 'text-[#66717D]'
-                  }`}>
-                    {itemNumber}
+                <div className="relative z-10 flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-semibold tracking-[0.16em] text-[var(--color-muted-slate)]">
+                    0{index + 1}
                   </span>
-                  <div>
-                    <h3 className={`font-['Marcellus',serif] text-base sm:text-lg font-bold mb-1.5 transition-colors leading-snug ${
-                      isSelected ? 'text-[#0E2234]' : 'text-[#0E2234] group-hover:text-[#66717D]'
-                    }`}>
-                      {item.name}
-                    </h3>
-                    <p className="font-['Inter',sans-serif] text-clamp-body-sm leading-relaxed text-[#66717D] max-w-xl">
-                      {item.desc}
-                    </p>
-                  </div>
-                  <ArrowUpRight className={`w-4 h-4 mt-0.5 transition-transform duration-300 ${
-                    isSelected ? 'text-[#F8C311]' : 'text-[#66717D] group-hover:text-[#0E2234] group-hover:translate-x-0.5 group-hover:-translate-y-0.5'
-                  }`} />
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--color-soft-grey)] text-[var(--color-navy)] transition-colors duration-300 group-hover:bg-[var(--color-primary)]/20">
+                  <Icon
+                    aria-hidden="true"
+                    className="h-5 w-5"
+                    strokeWidth={1.8}
+                  />
+                  </span>
                 </div>
-              </button>
+                <h3 className="relative z-10 mt-5 max-w-[18rem] font-['Manrope',sans-serif] text-lg font-bold leading-snug sm:text-xl">
+                  {item.name}
+                </h3>
+                <p className="relative z-10 mt-2 max-w-[21rem] font-['Inter',sans-serif] text-sm leading-relaxed text-[var(--color-muted-slate)]">
+                  {item.desc}
+                </p>
+                <button
+                  type="button"
+                  aria-label={`Discuss ${item.name}`}
+                  onClick={() => onOpenConsultation(item.name)}
+                  className="group/action relative z-10 mt-auto inline-flex w-fit items-center gap-2 pt-5 font-['Manrope',sans-serif] text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-navy)]"
+                >
+                  <span>Discuss this capability</span>
+                  <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover/action:translate-x-0.5 group-hover/action:-translate-y-0.5" />
+                </button>
+                <svg
+                  viewBox="0 0 180 110"
+                  className="pointer-events-none absolute -bottom-1 right-0 z-0 h-[96px] w-[150px] opacity-[0.12] transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  style={{ color: '#0E2234' }}
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <pattern id={`capability-lines-${item.id}`} width="8" height="8" patternTransform="rotate(35)" patternUnits="userSpaceOnUse">
+                      <path d="M0 0V8" stroke="currentColor" strokeOpacity="0.5" strokeWidth="1.5" />
+                    </pattern>
+                  </defs>
+                  <rect x="72" y="18" width="72" height="50" rx="2" fill="currentColor" fillOpacity="0.65" />
+                  <rect x="72" y="18" width="72" height="50" rx="2" fill={`url(#capability-lines-${item.id})`} />
+                  <circle cx="128" cy="73" r="27" fill="currentColor" fillOpacity="0.7" />
+                  <circle cx="128" cy="73" r="27" fill={`url(#capability-lines-${item.id})`} />
+                  <path d="M42 54H91V103H42C28.5 103 18 92.5 18 79S28.5 54 42 54Z" fill="currentColor" fillOpacity="0.6" />
+                  <path d="M42 54H91V103H42C28.5 103 18 92.5 18 79S28.5 54 42 54Z" fill={`url(#capability-lines-${item.id})`} />
+                  <circle cx="78" cy="29" r="12" fill="white" fillOpacity="0.88" />
+                </svg>
+              </article>
             );
           })}
-        </div>
-
-        {/* Editorial Action Bar */}
-        <div className="bg-[#0E2234] border-l-2 border-[#F8C311] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-white">
-          <div>
-            <div className="font-['Marcellus',serif] text-clamp-subheading font-bold text-white mb-1">
-              Need an integrated channel audit for your business?
-            </div>
-            <div className="font-['Inter',sans-serif] text-clamp-body-sm text-[#D1D1D6]">
-              Our strategists analyze your search positioning, visual branding, and funnel unit economics.
-            </div>
-          </div>
-          <button
-            onClick={onOpenConsultation}
-            aria-label="Request Growth Audit - Open Consultation"
-            className="group relative inline-flex items-center justify-center gap-2 text-[#0E2234] font-['Inter',sans-serif] text-xs font-extrabold uppercase tracking-wider px-7 py-3.5 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 shrink-0 cursor-pointer w-full sm:w-auto"
-          >
-            <BtnShape fill="#F8C311" />
-            <span className="relative z-10">Request Growth Audit</span>
-            <ArrowUpRight className="relative z-10 w-4 h-4 stroke-[2.8] text-[#0E2234]" />
-          </button>
         </div>
 
       </div>

@@ -24,7 +24,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   onOpenConsultation,
 }) => {
   const getIcon = (iconName: string) => {
-    const props = { className: 'w-5 h-5 text-[#F8C311] stroke-[2]' };
+    const props = { className: 'w-5 h-5 text-[var(--color-navy)] stroke-[2]' };
     switch (iconName) {
       case 'compass':
         return <Compass {...props} />;
@@ -48,84 +48,74 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   };
 
   return (
-    <section id="services" className="py-16 sm:py-24 lg:py-32 bg-[#FFFFFF] border-t border-[#E5E9ED] relative text-[#17212B]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="relative bg-[var(--color-soft-grey)] py-16 text-[var(--color-dark-text)] sm:py-24 lg:py-28">
+      <div className="site-gutter">
         
         {/* Section Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-end gap-6 lg:gap-10 mb-10 sm:mb-14 pb-8 sm:pb-10 border-b border-[#E5E9ED]">
+        <div className="mb-10 grid grid-cols-1 gap-6 border-b border-[var(--color-border)] pb-8 sm:mb-14 sm:pb-10 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-8">
-            <div className="flex items-center gap-2 text-clamp-label font-['Manrope',sans-serif] tracking-widest text-[#F8C311] uppercase font-semibold mb-3">
+            <div className="mb-3 flex items-center gap-2 font-['Manrope',sans-serif] text-clamp-label font-semibold uppercase tracking-widest text-[var(--color-navy)]">
               <span>Core Services</span>
               <span aria-hidden="true">·</span>
               <span>Growth Capabilities</span>
             </div>
             <WordRevealHeading
               as="h2"
-              className="font-['Marcellus',serif] text-clamp-heading text-[#0E2234] font-normal tracking-tight leading-tight"
+              className="font-['Marcellus',serif] text-clamp-heading font-normal leading-tight tracking-tight text-[var(--color-dark-text)]"
             >
-              Discover Our <span className="text-[#F8C311]">Capabilities.</span>
+              Discover Our <span className="text-[var(--color-navy)]">Capabilities.</span>
             </WordRevealHeading>
           </div>
 
           <div className="lg:col-span-4 flex items-end justify-between gap-5">
-            <p className="font-['Inter',sans-serif] text-clamp-body-sm text-[#66717D] leading-relaxed max-w-sm">
+            <p className="max-w-sm font-['Inter',sans-serif] text-clamp-body-sm leading-relaxed text-[var(--color-muted-slate)]">
               Brand strategy, identity, websites and digital growth—built to work together.
             </p>
             <button
               onClick={onOpenConsultation}
-              className="group relative w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-[#F8C311] hover:bg-[#e6b30c] text-[#0E2234] transition-all duration-300 flex flex-col items-center justify-center p-2 shadow-lg shadow-[#F8C311]/20 hover:-translate-y-1 active:translate-y-0 cursor-pointer shrink-0"
+              className="group relative w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-[var(--color-primary)] hover:bg-[var(--color-primary)] text-[var(--color-navy)] transition-all duration-300 flex flex-col items-center justify-center p-2 shadow-lg shadow-[var(--color-primary)]/20 hover:-translate-y-1 active:translate-y-0 cursor-pointer shrink-0"
               aria-label="Let's Talk - Open Consultation Form"
             >
-              <span className="font-['Marcellus',serif] text-[11px] sm:text-xs tracking-wider uppercase text-[#0E2234] leading-tight text-center font-bold">
+              <span className="font-['Marcellus',serif] text-[11px] sm:text-xs tracking-wider uppercase text-[var(--color-navy)] leading-tight text-center font-bold">
                 Let's
                 <br />
                 Talk
               </span>
-              <ArrowUpRight className="w-4 h-4 text-[#0E2234] stroke-[2.8] mt-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="w-4 h-4 text-[var(--color-navy)] stroke-[2.8] mt-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </button>
           </div>
         </div>
 
-        {/* Two-column service index */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 lg:gap-x-16">
+        <div className="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
           {SERVICES_LIST.map((service, index) => (
-            <div
+            <article
               key={service.id}
-              className="group relative border-t border-[#E5E9ED] hover:border-[#F8C311] py-6 sm:py-7 transition-colors duration-300"
+              className="group grid grid-cols-[auto_1fr] items-start gap-x-4 gap-y-3 py-6 transition-colors duration-300 hover:bg-white/60 sm:grid-cols-[3.5rem_minmax(11rem,0.9fr)_minmax(16rem,1.4fr)_auto] sm:items-center sm:gap-x-6 sm:py-7"
             >
-              <div className="grid grid-cols-[2.5rem_minmax(0,1fr)] sm:grid-cols-[3rem_minmax(0,1fr)] gap-x-3 sm:gap-x-4">
-                <span className="font-mono text-sm sm:text-base font-medium tracking-wide text-[#66717D] pt-0.5 tabular-nums">
-                  {String(index + 1).padStart(2, '0')}
+              <span className="row-span-2 flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-white)] text-[var(--color-navy)] sm:row-span-1">
+                {getIcon(service.icon)}
+              </span>
+              <div className="min-w-0">
+                <span className="mb-1 block font-mono text-xs font-medium tracking-wide text-[var(--color-primary)]">
+                  {String(index + 1).padStart(2, '0')} <span className="px-1 text-[var(--color-muted-slate)]">/</span> {service.category}
                 </span>
-
-                <div>
-                  <div className="flex items-center justify-between gap-4 mb-3">
-                    <span className="font-['Manrope',sans-serif] text-[10px] sm:text-[11px] uppercase tracking-[0.14em] font-bold text-[#66717D]">
-                      {service.category}
-                    </span>
-                    <span className="shrink-0">{getIcon(service.icon)}</span>
-                  </div>
-
-                  <h3 className="font-['Marcellus',serif] text-lg sm:text-xl font-normal text-[#0E2234] mb-2.5 group-hover:text-[#66717D] transition-colors leading-snug">
-                    {service.title}
-                  </h3>
-
-                  <p className="font-['Inter',sans-serif] text-clamp-body-sm text-[#66717D] leading-relaxed mb-5 max-w-xl">
-                    {service.shortDesc}
-                  </p>
-
-                  <button
-                    onClick={() => onSelectService(service)}
-                    aria-label={`Explore details for ${service.title}`}
-                    className="group/btn relative inline-flex min-w-[190px] items-center justify-between text-[#0E2234] group-hover/btn:text-[#0E2234] font-['Inter',sans-serif] text-[11px] font-extrabold uppercase tracking-wider py-3 px-4 rounded-lg transition-all duration-200 cursor-pointer"
-                  >
-                    <BtnShape fill="#E5E9ED" className="group-hover/btn:fill-[#F8C311] transition-colors" />
-                    <span className="relative z-10">Explore Service</span>
-                    <ArrowUpRight className="relative z-10 w-3.5 h-3.5 stroke-[2.5] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                  </button>
-                </div>
+                <h3 className="font-['Marcellus',serif] text-lg font-normal leading-snug text-[var(--color-dark-text)] transition-colors group-hover:text-[var(--color-navy)] sm:text-xl">
+                  {service.title}
+                </h3>
               </div>
-            </div>
+              <p className="col-start-2 max-w-2xl font-['Inter',sans-serif] text-clamp-body-sm leading-relaxed text-[var(--color-muted-slate)] sm:col-start-auto">
+                {service.shortDesc}
+              </p>
+              <button
+                onClick={() => onSelectService(service)}
+                aria-label={`Explore details for ${service.title}`}
+                className="group/btn relative col-start-2 inline-flex min-w-[160px] items-center justify-between rounded-lg px-4 py-3 font-['Inter',sans-serif] text-[11px] font-extrabold uppercase tracking-wider text-[var(--color-navy)] transition-all duration-200 sm:col-start-auto"
+              >
+                <BtnShape fill="#F8C311" className="group-hover/btn:fill-white transition-colors" />
+                <span className="relative z-10">Explore Service</span>
+                <ArrowUpRight className="relative z-10 w-3.5 h-3.5 stroke-[2.5] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+              </button>
+            </article>
           ))}
         </div>
 

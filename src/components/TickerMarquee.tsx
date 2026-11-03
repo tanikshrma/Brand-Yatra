@@ -1,5 +1,4 @@
 import React from 'react';
-import logoBlack from '../assets/images/Logo Black 01.png';
 
 export const TickerMarquee: React.FC = () => {
   const items = [
@@ -18,31 +17,27 @@ export const TickerMarquee: React.FC = () => {
 
   return (
     <div
+      role="img"
       aria-label="Brand Yatra Services Ticker"
-      className="bg-[#f5f6f7] text-[#0E2234] py-4 sm:py-5 overflow-hidden select-none border-y border-[#E5E9ED]"
+      className="relative z-10 overflow-hidden bg-[var(--color-soft-grey)] py-5 select-none sm:py-7"
     >
-      <div className="animate-marquee flex items-center gap-10 whitespace-nowrap">
-        {[...items, ...items].map((item, idx) => (
-          <div key={idx} className="flex items-center gap-10 shrink-0">
-            {/* Official Brand Yatra Logo Black Image */}
-            <img
-              src={logoBlack}
-              alt="Brand Yatra"
-              width={120}
-              height={24}
-              loading="lazy"
-              decoding="async"
-              className="h-5 sm:h-6 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
-            />
-            <span className="text-[#F8C311] text-xs font-bold" aria-hidden="true">✦</span>
-            <span className="font-['Manrope',sans-serif] text-xs sm:text-sm uppercase tracking-[0.22em] font-extrabold text-[#0E2234]">
-              {item}
-            </span>
-            <span className="text-[#66717D]/40 text-xs font-mono" aria-hidden="true">/</span>
-          </div>
-        ))}
+      <div
+        className="relative -ml-[8%] w-[116%] rotate-[0deg] bg-[var(--color-primary)] py-3 sm:py-4"
+        aria-hidden="true"
+      >
+        <div className="animate-marquee flex items-center gap-6 whitespace-nowrap sm:gap-9">
+          {[...items, ...items].map((item, idx) => (
+            <div key={`${item}-${idx}`} className="flex shrink-0 items-center gap-6 sm:gap-9">
+              <span className="font-['Marcellus',serif] text-sm uppercase tracking-wide text-[var(--color-navy)] sm:text-base">
+                {item}
+              </span>
+              <span className="font-['Inter',sans-serif] text-sm font-bold text-[var(--color-navy)]/65" aria-hidden="true">
+                •
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
-

@@ -41,6 +41,11 @@ export interface TestimonialItem {
   rating: number;
 }
 
+interface SocialProfile {
+  name: string;
+  url: string;
+}
+
 export const AGENCY_INFO = {
   name: 'Brand Yatra',
   tagline: 'Creative Branding & Digital Marketing Agency',
@@ -49,18 +54,10 @@ export const AGENCY_INFO = {
   email: 'hello@brandyatra.com',
   careersEmail: 'careers@brandyatra.com',
   address: {
-    line1: 'Chandigarh, India',
-    line2: 'Tricity Creative Hub',
     city: 'Chandigarh, India',
     country: 'India'
   },
-  socials: [
-    { name: 'Instagram', url: 'https://instagram.com' },
-    { name: 'Behance', url: 'https://behance.net' },
-    { name: 'LinkedIn', url: 'https://linkedin.com' },
-    { name: 'X / Twitter', url: 'https://twitter.com' },
-    { name: 'YouTube', url: 'https://youtube.com' }
-  ]
+  socials: [] as SocialProfile[]
 };
 
 export const HERO_STATS = [
@@ -230,31 +227,33 @@ export const PORTFOLIO_SHOWCASE: PortfolioItem[] = [
 export const PROCESS_STEPS = [
   {
     step: '01',
+    stage: 'Discover',
     title: 'Discovery & Research',
-    subtitle: 'Market Audit & Audience Profiling',
-    description: 'We audit your current brand footprint, analyze competitors, uncover untapped search and audience opportunities, and set exact quantitative growth benchmarks.',
-    keyDeliverables: 'Audience Persona Matrix, Competitive Gap Analysis, Baseline Analytics Audit'
+    description: 'Audit your brand and competitors to find audience opportunities and set growth benchmarks.'
   },
   {
     step: '02',
+    stage: 'Define',
     title: 'Strategy & Planning',
-    subtitle: 'Channel Mix & Value Proposition',
-    description: 'We construct a unified growth roadmap specifying exact channel priorities, messaging hooks, funnel stages, and budget allocations for predictable scale.',
-    keyDeliverables: 'Media Spend Architecture, Value Proposition Canvas, Channel Priority Plan'
+    description: 'Set channel priorities, messaging, funnels, and budgets in one growth roadmap.'
   },
   {
     step: '03',
+    stage: 'Design',
     title: 'Creative Execution',
-    subtitle: 'Production & Campaign Deployment',
-    description: 'Our design and copy squads produce world-class creative assets, launch optimized landing experiences, and build out high-intent search and paid media setups.',
-    keyDeliverables: 'High-Converting Ad Creatives, Conversion Landing Pages, Campaign Tracking Infrastructure'
+    description: 'Create brand and campaign assets tailored to your audience.'
   },
   {
     step: '04',
+    stage: 'Develop',
+    title: 'Landing Pages & Campaigns',
+    description: 'Build optimized landing pages and launch tracked search and paid campaigns.'
+  },
+  {
+    step: '05',
+    stage: 'Grow',
     title: 'Measurement & Optimization',
-    subtitle: 'Iterative Scaling & Revenue Expansion',
-    description: 'Continuous multivariate testing, bid adjustments, creative refreshes, and CRO audits ensure your customer acquisition cost drops while revenue multiplies.',
-    keyDeliverables: 'Weekly ROAS & CPA Dashboards, A/B Testing Logs, Scale Recommendations'
+    description: 'Test and refine campaigns to improve acquisition costs and grow revenue.'
   }
 ];
 

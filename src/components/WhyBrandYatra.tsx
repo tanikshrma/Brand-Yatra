@@ -10,89 +10,81 @@ interface WhyBrandYatraProps {
 export const WhyBrandYatra: React.FC<WhyBrandYatraProps> = ({ onOpenConsultation }) => {
   const pillars = [
     {
-      icon: <Zap className="w-4 h-4 text-[#F8C311]" />,
+      icon: <Zap className="h-6 w-6" />,
       title: 'Aesthetic Conviction',
       desc: 'Distinct visual identity and premium editorial design that sets your brand apart from generic digital templates.',
     },
     {
-      icon: <Target className="w-4 h-4 text-[#F8C311]" />,
+      icon: <Target className="h-6 w-6" />,
       title: 'Intent-First Acquisition',
       desc: 'Laser-focused Google Ads and SEO funnels capturing buyers at the exact moment of commercial consideration.',
     },
     {
-      icon: <Layers className="w-4 h-4 text-[#F8C311]" />,
+      icon: <Layers className="h-6 w-6" />,
       title: 'Connected Execution',
       desc: 'Zero siloed handoffs. Brand strategists, media buyers, and UI engineers work in lockstep under one roof.',
     },
     {
-      icon: <BarChart3 className="w-4 h-4 text-[#F8C311]" />,
+      icon: <BarChart3 className="h-6 w-6" />,
       title: 'Compounding Revenue',
       desc: 'Data pipelines calibrated around true contribution margin, ROAS, and customer lifetime value.',
     },
   ];
 
   return (
-    <section className="py-16 sm:py-24 lg:py-32 bg-[#F5F6F7] text-[#17212B] border-y border-[#E5E9ED] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
-          
-          {/* Left Column */}
-          <div className="lg:col-span-6">
-            <div className="flex items-center gap-2 text-clamp-label font-['Manrope',sans-serif] tracking-widest text-[#F8C311] uppercase font-semibold mb-3">
-              <span>Why Brand Yatra</span>
-            </div>
+    <section className="relative overflow-hidden bg-[var(--color-soft-grey)] py-16 text-[var(--color-dark-text)] sm:py-20 lg:py-24">
+      <div className="site-gutter">
+        <div className="mb-9 flex items-center gap-2 font-['Manrope',sans-serif] text-clamp-label font-semibold uppercase tracking-widest text-[var(--color-muted-slate)]">
+          <span>Why Brand Yatra</span>
+        </div>
 
-            <WordRevealHeading
-              as="h2"
-              className="font-['Marcellus',serif] text-clamp-heading text-[#0E2234] font-normal tracking-tight leading-tight mb-6"
+        <div className="mb-10 grid grid-cols-1 items-end gap-6 lg:grid-cols-12">
+          <WordRevealHeading
+            as="h2"
+            className="font-['Marcellus',serif] text-clamp-heading font-normal leading-tight tracking-tight text-[var(--color-navy)] lg:col-span-6"
+          >
+            Built Around <span className="text-[var(--color-muted-slate)]">Your Growth.</span>
+          </WordRevealHeading>
+          <p className="max-w-xl font-['Inter',sans-serif] text-clamp-body text-[var(--color-muted-slate)] lg:col-span-5 lg:col-start-8">
+            Creative thinking, clear strategy, and connected execution help every part of your brand work together seamlessly to deliver compounding commercial outcomes.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-7">
+          {pillars.map((item, idx) => (
+            <article
+              key={idx}
+              className="relative flex min-h-[330px] flex-col items-center overflow-hidden rounded-[3.25rem] border border-[var(--color-border)] bg-white px-5 pb-[4.75rem] pt-8 text-center shadow-[0_14px_30px_rgba(14,34,52,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-primary)] hover:shadow-[0_18px_38px_rgba(14,34,52,0.1)] sm:px-6"
             >
-              Built Around <span className="text-[#F8C311]">Your Growth.</span>
-            </WordRevealHeading>
-
-            <p className="font-['Inter',sans-serif] text-clamp-body text-[#66717D] leading-relaxed mb-8 max-w-lg">
-              Creative thinking, clear strategy, and connected execution help every part of your brand work together seamlessly to deliver compounding commercial outcomes.
-            </p>
-
-            <div>
-              <button
-                onClick={onOpenConsultation}
-                aria-label="Let's Build Something Better - Open Consultation"
-                className="group relative inline-flex items-center justify-center gap-2.5 text-[#0E2234] font-['Inter',sans-serif] text-xs sm:text-sm font-extrabold uppercase tracking-wider px-8 py-4 transition-all duration-300 filter drop-shadow-[0_8px_20px_rgba(248,195,17,0.3)] hover:-translate-y-1 active:translate-y-0 cursor-pointer w-full sm:w-auto"
+              <span className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-soft-grey)] text-[var(--color-navy)] [&>svg]:stroke-[var(--color-navy)]">
+                {item.icon}
+              </span>
+              <h3 className="font-['Manrope',sans-serif] text-base font-bold leading-snug text-[var(--color-dark-text)] sm:text-lg">
+                {item.title}
+              </h3>
+              <p className="mt-3 font-['Inter',sans-serif] text-xs leading-relaxed text-[var(--color-muted-slate)]">
+                {item.desc}
+              </p>
+              <span
+                className="absolute bottom-0 left-1/2 flex h-[3.75rem] w-24 -translate-x-1/2 items-center justify-center rounded-t-[2.25rem] bg-[var(--color-navy)] font-['Marcellus',serif] text-2xl font-bold text-[var(--color-primary)]"
+                aria-label={`Step ${idx + 1}`}
               >
-                <BtnShape fill="#F8C311" />
-                <span className="relative z-10">Let's Build Something Better</span>
-                <ArrowUpRight className="relative z-10 w-4 h-4 stroke-[2.8] text-[#0E2234]" />
-              </button>
-            </div>
-          </div>
+                0{idx + 1}
+              </span>
+            </article>
+          ))}
+        </div>
 
-          {/* Right Column */}
-          <div className="lg:col-span-6">
-            {pillars.map((item, idx) => (
-              <div
-                key={idx}
-                className="group relative grid grid-cols-[2.5rem_1fr] sm:grid-cols-[3rem_1fr] gap-x-4 sm:gap-x-5 border-t border-[#E5E9ED] py-5 sm:py-6"
-              >
-                <div className="relative z-10 contents">
-                  <div className="w-10 h-10 bg-[#F5F6F7] border border-[#E5E9ED] group-hover:border-[#F8C311] flex items-center justify-center transition-colors">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <div className="flex items-baseline gap-3 mb-1">
-                      <span className="font-mono text-[11px] text-[#66717D]">0{idx + 1}</span>
-                      <h3 className="font-['Marcellus',serif] text-base sm:text-lg font-bold text-[#0E2234] leading-snug">
-                        {item.title}
-                      </h3>
-                    </div>
-                    <p className="font-['Inter',sans-serif] text-clamp-body-sm text-[#66717D] leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
+        <div className="mt-8">
+          <button
+            onClick={onOpenConsultation}
+            aria-label="Let's Build Something Better - Open Consultation"
+            className="group relative inline-flex w-full items-center justify-center gap-2.5 px-8 py-4 font-['Inter',sans-serif] text-xs font-extrabold uppercase tracking-wider text-[var(--color-navy)] sm:w-auto sm:text-sm"
+          >
+            <BtnShape fill="#F8C311" />
+            <span className="relative z-10">Let's Build Something Better</span>
+            <ArrowUpRight className="relative z-10 h-4 w-4 stroke-[2.8]" />
+          </button>
         </div>
       </div>
     </section>

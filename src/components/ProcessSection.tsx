@@ -1,5 +1,5 @@
-import React from 'react';
-import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { PROCESS_STEPS } from '../data/agencyData';
 import { BtnShape } from './BtnShape';
 import { WordRevealHeading } from './WordRevealHeading';
@@ -9,96 +9,121 @@ interface ProcessSectionProps {
 }
 
 export const ProcessSection: React.FC<ProcessSectionProps> = ({ onOpenConsultation }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const cards = sectionRef.current?.querySelectorAll<HTMLElement>('[data-process-card]');
+    if (!cards?.length) return;
+
+    const revealAll = () => cards.forEach((card) => card.setAttribute('data-revealed', 'true'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      revealAll();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.setAttribute('data-revealed', 'true');
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+    );
+
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="process" className="py-16 sm:py-24 lg:py-32 bg-[#FFFFFF] text-[#17212B] relative overflow-hidden border-t border-[#E5E9ED]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 mb-12 sm:mb-16 pb-8 border-b border-[#E5E9ED]">
+    <section ref={sectionRef} id="process" className="relative overflow-hidden bg-[var(--color-soft-grey)] py-14 text-[var(--color-dark-text)] sm:py-18 lg:py-20">
+      <div className="site-gutter">
+        <div className="mb-10 flex flex-col gap-3 border-b border-[var(--color-border)] pb-7 sm:mb-12">
           <div>
-            <div className="flex items-center gap-2 text-clamp-label font-['Manrope',sans-serif] tracking-widest text-[#66717D] uppercase font-bold mb-3">
-              <span className="text-[#F8C311] bg-[#0E2234] px-2 py-0.5 rounded font-mono text-xs">03</span>
-              <span aria-hidden="true">·</span>
+            <div className="mb-3 flex items-center gap-2 font-['Manrope',sans-serif] text-clamp-label font-semibold uppercase tracking-widest text-[var(--color-navy)]">
               <span>Methodology &amp; Execution</span>
             </div>
             <WordRevealHeading
               as="h2"
-              className="font-['Marcellus',serif] text-clamp-heading text-[#0E2234] font-normal tracking-tight leading-tight"
+              className="font-['Marcellus',serif] text-clamp-heading font-normal leading-tight tracking-tight text-[var(--color-dark-text)]"
             >
-              Our Proven <span className="text-[#0E2234] underline decoration-[#F8C311] decoration-4 underline-offset-8">Process.</span>
+              Our Proven <span className="text-[var(--color-muted-slate)]">Process.</span>
             </WordRevealHeading>
           </div>
-          <p className="font-['Inter',sans-serif] text-clamp-body-sm text-[#66717D] max-w-md leading-relaxed">
-            A clear, collaborative 4-step framework engineered to establish enduring brand authority and scale predictable acquisition pipeline.
+          <p className="max-w-2xl font-['Inter',sans-serif] text-clamp-body-sm leading-relaxed text-[var(--color-muted-slate)]">
+            Five clear stages take your brand from discovery to sustained growth.
           </p>
         </div>
 
-        {/* Four-stage timeline */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-y border-[#E5E9ED] mb-12 sm:mb-16">
-          {PROCESS_STEPS.map((step, idx) => {
-            const isHighlight = idx === 1;
-
-            return (
-              <div
-                key={step.step}
-                className={`relative py-7 sm:py-8 lg:py-9 px-5 sm:px-7 lg:px-6 border-b md:border-b-0 md:odd:border-r lg:border-r last:border-0 border-[#E5E9ED] ${
-                  isHighlight ? 'bg-[#F5F6F7]' : 'bg-white'
+        <div className="relative py-3 md:py-8">
+          <svg
+            className="pointer-events-none absolute inset-0 hidden h-full w-full md:block"
+            viewBox="0 0 1000 1000"
+            preserveAspectRatio="none"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M750 30 C750 105 250 105 250 230 S750 305 750 430 S250 505 250 630 S750 705 750 830 S750 905 750 970"
+              stroke="var(--color-muted-slate)"
+              strokeOpacity="0.35"
+              strokeWidth="2"
+              strokeDasharray="5 10"
+            />
+          </svg>
+          {PROCESS_STEPS.map((step, index) => (
+            <div
+              key={step.step}
+              data-process-card
+              data-revealed="false"
+              style={{ transitionDelay: `${Math.min(index, 3) * 90}ms` }}
+              className={`relative z-10 flex min-h-0 translate-y-8 items-center py-4 opacity-0 transition-[opacity,translate] duration-700 ease-out data-[revealed=true]:translate-y-0 data-[revealed=true]:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 md:min-h-[205px] md:py-2 ${
+                index % 2 === 0 ? 'md:justify-end' : 'md:justify-start'
+              }`}
+            >
+              <article
+                className={`relative w-full rounded-[1.4rem] border border-[var(--color-border)] bg-white px-5 pb-6 pt-8 shadow-[0_16px_30px_rgba(14,34,52,0.12)] transition-transform duration-300 hover:-translate-y-1 sm:px-6 sm:pb-7 md:max-w-[390px] ${
+                  index % 2 === 0 ? 'md:-rotate-3' : 'md:rotate-3'
                 }`}
               >
-                <div className="flex items-center justify-between gap-3 mb-7">
-                  <span className={`font-mono text-4xl sm:text-5xl font-medium tracking-tight ${
-                    isHighlight ? 'text-[#F8C311]' : 'text-[#66717D]'
-                  }`}>
-                    {step.step}
-                  </span>
-                  {idx < PROCESS_STEPS.length - 1 && (
-                    <span aria-hidden="true" className="hidden lg:block h-px flex-1 bg-[#E5E9ED]" />
-                  )}
+                <span className="absolute left-1/2 top-0 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-border)] bg-white shadow-[0_3px_8px_rgba(14,34,52,0.16)]">
+                  <span className="h-3 w-3 rounded-full bg-[var(--color-navy)] shadow-inner" />
+                </span>
+                <div className="mb-3 font-mono text-xs font-semibold tracking-wide text-[var(--color-muted-slate)]">
+                  {step.step}
                 </div>
-
-                <div>
-                  <div className="text-clamp-label uppercase font-bold tracking-wider text-[#66717D] mb-2">
-                    {step.subtitle}
-                  </div>
-                  <h3 className="font-['Marcellus',serif] text-xl sm:text-2xl font-bold text-[#0E2234] mb-4 leading-snug">
-                    {step.title}
-                  </h3>
-
-                  <p className="font-['Inter',sans-serif] text-clamp-body-sm leading-relaxed text-[#66717D] mb-5">
-                    {step.description}
-                  </p>
-
-                  <div className="pt-4 border-t border-[#E5E9ED] flex items-start gap-2 text-xs font-['Inter',sans-serif] font-semibold text-[#0E2234]">
-                    <CheckCircle2 className="w-4 h-4 shrink-0 text-[#F8C311]" />
-                    <span>{step.keyDeliverables}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+                <h3 className="font-['Marcellus',serif] text-xl font-normal leading-snug text-[var(--color-dark-text)] sm:text-2xl">
+                  {step.stage}
+                </h3>
+                <p className="mt-2 font-['Inter',sans-serif] text-clamp-body-sm leading-relaxed text-[var(--color-muted-slate)]">
+                  {step.description}
+                </p>
+              </article>
+            </div>
+          ))}
         </div>
 
-        {/* Bottom Custom Strategy Call Banner */}
-        <div className="bg-[#0E2234] text-white p-6 sm:p-7 md:p-9 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="mt-9 flex flex-col items-start justify-between gap-4 border-t border-[var(--color-border)] pt-6 sm:flex-row sm:items-center">
           <div>
-            <div className="font-['Marcellus',serif] text-clamp-subheading font-bold text-white mb-2">
-              Ready to execute a custom channel strategy?
+            <div className="font-['Marcellus',serif] text-lg font-bold text-[var(--color-dark-text)]">
+              Ready to get started?
             </div>
-            <div className="font-['Inter',sans-serif] text-clamp-body-sm text-[#D1D1D6] max-w-xl">
-              We align visual design, search intent, and media budget around your specific growth goals.
-            </div>
+            <p className="mt-1 max-w-xl font-['Inter',sans-serif] text-clamp-body-sm text-[var(--color-muted-slate)]">
+              Let’s map the right next step for your brand.
+            </p>
           </div>
           <button
             onClick={onOpenConsultation}
             aria-label="Book Strategy Consultation"
-            className="group relative inline-flex items-center justify-center gap-2 text-[#0E2234] font-['Inter',sans-serif] text-xs font-extrabold uppercase tracking-wider px-7 py-3.5 transition-all duration-300 hover:-translate-y-1 active:translate-y-0 shrink-0 cursor-pointer w-full sm:w-auto"
+            className="group relative inline-flex w-full shrink-0 items-center justify-center gap-2 px-7 py-3.5 font-['Inter',sans-serif] text-xs font-extrabold uppercase tracking-wider text-[var(--color-navy)] sm:w-auto"
           >
             <BtnShape fill="#F8C311" />
             <span className="relative z-10">Book Strategy Consultation</span>
-            <ArrowUpRight className="relative z-10 w-4 h-4 stroke-[2.8] text-[#0E2234]" />
+            <ArrowUpRight className="relative z-10 h-4 w-4 stroke-[2.8]" />
           </button>
         </div>
-
       </div>
     </section>
   );
