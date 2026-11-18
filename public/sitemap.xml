@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Brand Yatra Pages -->
+  <url><loc>https://brandyatra.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://brandyatra.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://brandyatra.com/process</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://brandyatra.com/work</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://brandyatra.com/insights</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://brandyatra.com/contact</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://brandyatra.com/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://brandyatra.com/terms</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://brandyatra.com/cookie-policy</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+
+  <!-- 12 Dedicated Service Pages -->
+  <url><loc>https://brandyatra.com/services/branding</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/web-development</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/graphic-design</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/lead-generation</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/social-media</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/google-ads</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/seo</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/meta-ads</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/content</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/video-motion</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/ui-ux</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://brandyatra.com/services/analytics-cro</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
+  <!-- Published Portfolio Case Studies -->
+  <url><loc>https://brandyatra.com/work/nestora</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://brandyatra.com/work/veyra</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://brandyatra.com/work/kairo</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Published Insights Journal Articles Only (Drafts Strictly Excluded) -->
+  <url><loc>https://brandyatra.com/insights/why-a-strong-brand-identity-matters-more-than-ever</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://brandyatra.com/insights/building-a-digital-marketing-strategy-that-actually-makes-sense</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://brandyatra.com/insights/seo-fundamentals-every-growing-business-should-understand</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://brandyatra.com/insights/what-makes-a-business-website-effective</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://brandyatra.com/insights/creating-social-media-content-with-a-clear-purpose</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://brandyatra.com/insights/the-power-of-visual-storytelling-in-modern-marketing</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://brandyatra.com/insights/google-ads-vs-meta-ads-choosing-the-right-approach</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://brandyatra.com/insights/brand-strategy-vs-visual-identity-whats-the-difference</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://brandyatra.com/insights/how-content-and-seo-work-together</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+</urlset>
