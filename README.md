@@ -1,4 +1,4 @@
-#Brand Yatra® | Creative Digital Marketing Agency
+# Brand Yatra® | Creative Digital Marketing Agency
 
 Official website for **Brand Yatra**, a creative digital marketing agency.
 
